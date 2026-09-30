@@ -31,6 +31,26 @@ export type Course = {
 };
 
 export const categories = [
+  "Music",
+  "Drawing & Painting",
+  "Marketing",
+  "Animation",
+  "Social Media",
+  "UI/UX Design",
+  "Creative Marketing",
+  "Digital Illustration",
+  "Film & Video",
+  "Crafts",
+  "Freelance & Entrepreneurship",
+  "Graphic Design",
+  "Photography",
+  "Productivity",
+  "Web Development",
+  "Data Science",
+  "Cooking",
+];
+
+export const courseCategories = [
   "Featured",
   "Music",
   "Drawing & Painting",
@@ -49,6 +69,7 @@ export const categories = [
   "Web Development",
   "Data Science",
   "Cooking",
+  "+ More",
 ];
 
 const commonReviews: CourseReview[] = [
