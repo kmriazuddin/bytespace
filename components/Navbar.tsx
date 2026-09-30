@@ -23,13 +23,13 @@ const Navbar = () => {
   };
 
   return (
-    <div className="absolute inset-x-0 top-0 z-50 text-white bg-lime-400">
+    <div className="absolute inset-x-0 top-0 z-50 text-white">
       <div className="mx-auto flex max-w-7xl items-center justify-between px-5 py-5 lg:px-8">
         <Link
           href="/"
           className="flex items-center gap-2 font-bold tracking-tight"
         >
-          <span className="grid h-5 w-5 place-items-center rounded-[5px] bg-brand-lime text-[10px] text-brand-blue">
+          <span className="grid h-5 w-5 place-items-center rounded-[5px] bg-[#C9FF00] text-[10px] text-[#0738E6]">
             B
           </span>
           ByteSpace
@@ -50,7 +50,7 @@ const Navbar = () => {
           {user ? (
             <>
               <span className="max-w-28 truncate text-xs text-white/70">
-                {user?.displayName || "User"}
+                {user.displayName || "User"}
               </span>
               <button
                 onClick={logout}
@@ -63,14 +63,14 @@ const Navbar = () => {
             <>
               <Link
                 href="/login"
-                className="text-xs opacity-80 transition hover:opacity-100"
+                className="text-xs opacity-80 hover:opacity-100"
               >
                 Sign In
               </Link>
               <span className="opacity-40">|</span>
               <Link
                 href="/signup"
-                className="text-xs opacity-80 transition hover:opacity-100"
+                className="text-xs opacity-80 hover:opacity-100"
               >
                 Join Us
               </Link>
@@ -86,7 +86,7 @@ const Navbar = () => {
         </button>
       </div>
       {open && (
-        <div className="border-t border-white/10 bg-brand-blue px-5 py-5 md:hidden">
+        <div className="border-t border-white/10 bg-[#0738E6] px-5 py-5 md:hidden">
           <div className="flex flex-col gap-4">
             {navLinks.map(([label, href]) => (
               <Link
@@ -98,7 +98,9 @@ const Navbar = () => {
               </Link>
             ))}
             {user ? (
-              <button onClick={logout}>Sign Out</button>
+              <button className="text-left" onClick={logout}>
+                Sign Out
+              </button>
             ) : (
               <>
                 <Link href="/login">Sign In</Link>

@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 import AuthBootstrap from "@/components/AuthBootstrap";
 import StoreProvider from "@/store/Provider";
+import { Toaster } from "react-hot-toast";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -16,6 +17,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
           <AuthBootstrap />
           {children}
         </StoreProvider>
+        <Toaster position="top-right" />
       </body>
     </html>
   );
