@@ -31,6 +31,7 @@ export type Course = {
 };
 
 export const categories = [
+  "Featured",
   "Music",
   "Drawing & Painting",
   "Marketing",
