@@ -54,7 +54,7 @@ const Navbar = () => {
               </span>
               <button
                 onClick={logout}
-                className="text-xs opacity-80 hover:opacity-100"
+                className="text-xs opacity-80 hover:opacity-100 cursor-pointer"
               >
                 Sign Out
               </button>
@@ -98,7 +98,7 @@ const Navbar = () => {
               </Link>
             ))}
             {user ? (
-              <button className="text-left" onClick={logout}>
+              <button className="text-left cursor-pointer" onClick={logout}>
                 Sign Out
               </button>
             ) : (
