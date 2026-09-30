@@ -1,6 +1,6 @@
 "use client";
 
-import { categories, courses } from "@/lib/data";
+import { categories, courseCategories, courses } from "@/lib/data";
 import { setSelectedCategory } from "@/store/slices/uiSlice";
 import { RootState } from "@/store/store";
 import { useDispatch, useSelector } from "react-redux";
@@ -35,7 +35,7 @@ const FeaturedCourse = () => {
         </p>
       </div>
       <div className="mx-auto mt-8 flex max-w-5xl flex-wrap justify-center gap-2">
-        {categories.map((tab) => (
+        {courseCategories.map((tab) => (
           <button
             key={tab}
             onClick={() =>

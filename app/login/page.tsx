@@ -42,7 +42,8 @@ const Login = () => {
   };
 
   return (
-    <div className="min-h-screen bg-[#0738E6]">
+    <div className="min-h-screen bg-[#0738E6] bg-[linear-gradient(rgba(255,255,255,0.12)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.12)_1px,transparent_1px)]
+        bg-size-[96px_64px]">
       <Navbar />
       <div className="mx-auto grid min-h-screen max-w-6xl items-center gap-10 px-5 pt-20 lg:grid-cols-2">
         <div className="hidden text-white lg:block">
