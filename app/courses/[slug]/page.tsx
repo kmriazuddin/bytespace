@@ -42,15 +42,15 @@ export default async function CourseDetailsPage({
                 by <span className="text-[#C9FF00]">{course.creator}</span>
               </p>
               <div className="mt-4 flex flex-wrap gap-2">
-                <Badge>
+                <Badge className="bg-[#C9FF00] text-slate-700">
                   <Layers3 className="mr-2 h-3 w-3" />
                   {course.level}
                 </Badge>
-                <Badge>
+                <Badge className="bg-[#C9FF00] text-slate-700">
                   ★ &nbsp;{course.rating} (
                   {isDigital ? "172 reviews" : `${course.comments} reviews`})
                 </Badge>
-                <Badge>
+                <Badge className="bg-[#C9FF00] text-slate-700">
                   <UsersRound className="mr-2 h-3 w-3" />
                   {course.students} Students
                 </Badge>
