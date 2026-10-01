@@ -14,7 +14,7 @@ const Navbar = () => {
   const navLinks = [
     ["Home", "/"],
     ["Courses", "/courses"],
-    ["Creators", "/creators"],
+    ["Creators", "/creators/purepearl-studio"],
   ];
 
   const logout = async () => {

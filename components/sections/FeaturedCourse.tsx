@@ -50,7 +50,7 @@ const FeaturedCourse = () => {
                 ),
               )
             }
-            className={`rounded-full px-3 py-1.5 text-[8px] font-medium transition ${selected === tab ? "bg-[#C9FF00] text-slate-900" : "bg-slate-50 text-slate-500 hover:bg-slate-100"}`}
+            className={`rounded-full px-3 py-1.5 text-[10px] font-medium transition ${selected === tab ? "bg-[#C9FF00] text-slate-900" : "bg-slate-50 text-slate-500 hover:bg-slate-100"}`}
           >
             {tab}
           </button>

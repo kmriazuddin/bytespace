@@ -24,10 +24,10 @@ const Hero = () => {
         bg-size-[96px_64px]
       "
     >
-      {/* Decorative Shape - Left */}
+      {/* Shape - Left */}
       <div className="absolute md:hidden -left-5 top-36 z-10 h-24 w-24 rounded-[45%] bg-[#C9FF00] sm:left-0 sm:h-32 sm:w-32" />
 
-      {/* Decorative Shape - Right */}
+      {/* Shape - Right */}
       <Image
         src={img_4}
         alt="Squiggle decoration"
@@ -78,7 +78,7 @@ const Hero = () => {
           Courses Available
         </h1>
 
-        <p className="mx-auto mt-5 max-w-xl text-[11px] leading-5 text-white/65 sm:text-xs">
+        <p className="mx-auto mt-5 max-w-xl text-[11px] leading-5 text-white/65 sm:text-xl">
           Unlock your creativity, gain valuable knowledge, and grow your
           business with our wide range of courses.
         </p>
