@@ -1,13 +1,6 @@
 import { CheckCircle2 } from "lucide-react";
 import Image from "next/image";
 
-const note = [
-  { tex: "Share Your Expertise" },
-  "Monetize Your Passion",
-  "Flexibility and Autonomy",
-  "Build a Community",
-];
-
 const GrowthSection = () => {
   return (
     <section className="overflow-hidden bg-gradient-to-br from-[#f7ffd9] via-white to-[#eef1ff] py-20">

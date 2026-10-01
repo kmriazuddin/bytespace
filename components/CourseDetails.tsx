@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { useMemo, useState, useSyncExternalStore } from "react";
 import { Star } from "lucide-react";
 import type { Course } from "@/lib/data";
 import { Card, CardContent } from "@/components/ui/card";
@@ -15,26 +15,52 @@ const ratingCounts: Record<5 | 4 | 3 | 2 | 1, number> = {
   2: 12,
   1: 16,
 };
+
 type Tab = "about" | "lesson" | "reviews";
+const DEFAULT_TAB: Tab = "about";
+
+function getValidTab(): Tab {
+  if (typeof window === "undefined") {
+    return DEFAULT_TAB;
+  }
+  const hash = window.location.hash.replace("#", "");
+
+  if (hash === "about" || hash === "lesson" || hash === "reviews") {
+    return hash;
+  }
+  return DEFAULT_TAB;
+}
+
+function subscribeToHash(callback: () => void) {
+  window.addEventListener("hashchange", callback);
+  window.addEventListener("popstate", callback);
+
+  return () => {
+    window.removeEventListener("hashchange", callback);
+    window.removeEventListener("popstate", callback);
+  };
+}
 
 export default function CourseDetailsTabs({ course }: { course: Course }) {
-  const [tab, setTab] = useState<Tab>("about");
+  const tab = useSyncExternalStore(
+    subscribeToHash,
+    getValidTab,
+    () => DEFAULT_TAB,
+  );
+
   const [ratingFilter, setRatingFilter] = useState<"all" | 5 | 4 | 3 | 2 | 1>(
     "all",
   );
-  useEffect(() => {
-    const hash = window.location.hash.replace("#", "") as Tab;
-    if (hash === "about" || hash === "lesson" || hash === "reviews")
-      setTab(hash);
-  }, []);
+
   const selectTab = (next: Tab) => {
-    setTab(next);
     window.history.replaceState(
       null,
       "",
       `${window.location.pathname}#${next}`,
     );
+    window.dispatchEvent(new PopStateEvent("popstate"));
   };
+
   const reviews = useMemo(
     () =>
       ratingFilter === "all"
@@ -45,11 +71,9 @@ export default function CourseDetailsTabs({ course }: { course: Course }) {
 
   return (
     <section className="mt-10">
-      <Tabs value={tab} onValueChange={(v) => selectTab(v as Tab)}>
+      <Tabs value={tab} onValueChange={(value) => selectTab(value as Tab)}>
         <TabsList className="border-b border-slate-200 pb-3">
-          <TabsTrigger defaultValue="about" value="about">
-            About
-          </TabsTrigger>
+          <TabsTrigger value="about">About</TabsTrigger>
           <TabsTrigger value="lesson">Lesson</TabsTrigger>
           <TabsTrigger value="reviews">Reviews</TabsTrigger>
         </TabsList>
@@ -93,7 +117,6 @@ export default function CourseDetailsTabs({ course }: { course: Course }) {
             </>
           )}
         </TabsContent>
-
         <TabsContent value="lesson" className="pt-8">
           <h2 className="text-lg font-black">Explore the Modules</h2>
           <p className="mt-2 max-w-2xl text-sm leading-6 text-slate-500">
@@ -170,7 +193,9 @@ export default function CourseDetailsTabs({ course }: { course: Course }) {
                       }
                     />
                     <div className="flex gap-0.5 text-slate-500">
-                      {Array.from({ length: 5 }).map((_, i) => (
+                      {Array.from({
+                        length: 5,
+                      }).map((_, i) => (
                         <Star key={i} className="h-3 w-3 fill-current" />
                       ))}
                     </div>
@@ -190,7 +215,11 @@ export default function CourseDetailsTabs({ course }: { course: Course }) {
                 key={String(filter)}
                 type="button"
                 onClick={() => setRatingFilter(filter)}
-                className={`inline-flex items-center gap-1 rounded-full px-4 py-2 text-xs font-medium ${ratingFilter === filter ? "bg-[#C9FF00] text-slate-800" : "bg-slate-100 text-slate-600"}`}
+                className={`inline-flex items-center gap-1 rounded-full px-4 py-2 text-xs font-medium ${
+                  ratingFilter === filter
+                    ? "bg-[#C9FF00] text-slate-800"
+                    : "bg-slate-100 text-slate-600"
+                }`}
               >
                 {filter === "all" ? (
                   "All rating"
@@ -204,40 +233,52 @@ export default function CourseDetailsTabs({ course }: { course: Course }) {
             ))}
           </div>
           <div className="mt-5 space-y-4">
-            {reviews.map((review, index) => (
-              <Card key={`${review.name}-${index}`}>
-                <CardContent className="p-5 sm:p-6">
-                  <div className="flex items-start gap-3">
-                    <Avatar className="h-9 w-9 shrink-0">
-                      <AvatarImage src={review.avatar} alt={review.name} />
-                    </Avatar>
-                    <div className="min-w-0 flex-1">
-                      <div className="flex items-start justify-between gap-4">
-                        <div>
-                          <h4 className="text-xs font-semibold text-slate-800">
-                            {review.name}
-                          </h4>
-                          <p className="mt-0.5 text-[10px] text-slate-400">
-                            {review.role}
-                          </p>
+            {reviews.length > 0 ? (
+              reviews.map((review, index) => (
+                <Card key={`${review.name}-${index}`}>
+                  <CardContent className="p-5 sm:p-6">
+                    <div className="flex items-start gap-3">
+                      <Avatar className="h-9 w-9 shrink-0">
+                        <AvatarImage src={review.avatar} alt={review.name} />
+                      </Avatar>
+                      <div className="min-w-0 flex-1">
+                        <div className="flex items-start justify-between gap-4">
+                          <div>
+                            <h4 className="text-xs font-semibold text-slate-800">
+                              {review.name}
+                            </h4>
+                            <p className="mt-0.5 text-[10px] text-slate-400">
+                              {review.role}
+                            </p>
+                          </div>
+                          <span className="text-[9px] text-slate-400">
+                            {review.date}
+                          </span>
                         </div>
-                        <span className="text-[9px] text-slate-400">
-                          {review.date}
-                        </span>
+                        <div className="mt-3 flex gap-0.5 text-slate-600">
+                          {Array.from({
+                            length: review.rating,
+                          }).map((_, i) => (
+                            <Star key={i} className="h-3 w-3 fill-current" />
+                          ))}
+                        </div>
+                        <p className="mt-4 text-xs leading-6 text-slate-500">
+                          {review.text}
+                        </p>
                       </div>
-                      <div className="mt-3 flex gap-0.5 text-slate-600">
-                        {Array.from({ length: review.rating }).map((_, i) => (
-                          <Star key={i} className="h-3 w-3 fill-current" />
-                        ))}
-                      </div>
-                      <p className="mt-4 text-xs leading-6 text-slate-500">
-                        {review.text}
-                      </p>
                     </div>
-                  </div>
+                  </CardContent>
+                </Card>
+              ))
+            ) : (
+              <Card>
+                <CardContent className="p-6 text-center">
+                  <p className="text-sm text-slate-500">
+                    No reviews found for this rating.
+                  </p>
                 </CardContent>
               </Card>
-            ))}
+            )}
           </div>
         </TabsContent>
       </Tabs>

@@ -1,36 +1,150 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# ByteSpace
 
-## Getting Started
+A modern online learning platform built from the supplied ByteSpace
+Figma/PDF design reference.
 
-First, run the development server:
+## ✨ Features
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+-   Responsive ByteSpace landing page
+-   Featured categories and courses
+-   Course search/filter UI
+-   Individual dynamic course pages
+-   Course About, Lesson, and Review tabs
+-   Lesson modules and learning progress
+-   Rating summary, rating filters, and review cards
+-   Creator profile pages
+-   Firebase Email/Password authentication
+-   Real signup and login
+-   Firebase auth state persistence
+-   Navbar displays the user's **display name**
+-   Custom 404 page
+-   Responsive desktop/tablet/mobile layouts
+-   Reusable shadcn/ui components
+-   Redux Toolkit auth state
+-   React Hook Form + Zod validation
+-   react-hot-toast notifications
+
+## 🛠️ Tech Stack
+
+-   Next.js
+-   React
+-   TypeScript
+-   Tailwind CSS
+-   shadcn/ui
+-   Redux Toolkit
+-   React Redux
+-   Firebase Authentication
+-   React Hook Form
+-   Zod
+-   @hookform/resolvers
+-   react-hot-toast
+-   Lucide React
+-   clsx
+
+## 🚀 Getting Started
+
+### 1. Create/clone the project
+
+``` bash
+npx create-next-app@latest bytespace
+cd bytespace
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Choose:
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+-   TypeScript: Yes
+-   ESLint: Yes
+-   Tailwind CSS: Yes
+-   App Router: Yes
+-   `src/` directory: No
+-   Import alias: `@/*`
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+### 2. Install dependencies
 
-## Learn More
+``` bash
+npm install @reduxjs/toolkit react-redux firebase react-hook-form zod @hookform/resolvers react-hot-toast lucide-react clsx tailwind-merge jose
+```
 
-To learn more about Next.js, take a look at the following resources:
+### 3. Initialize shadcn/ui
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+``` bash
+npx shadcn@latest init
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+Recommended components:
 
-## Deploy on Vercel
+``` bash
+npx shadcn@latest add button card badge avatar progress tabs input label separator dropdown-menu
+```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+### 4. Start development
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+``` bash
+npm run dev
+```
+
+Open:
+
+``` text
+http://localhost:3000
+```
+
+## 🔐 Firebase Setup
+
+In Firebase Console:
+
+``` text
+Authentication
+└── Sign-in method
+    └── Email/Password
+        └── Enable
+```
+
+Create a web app and put the configuration into `.env.local`:
+
+``` env
+NEXT_PUBLIC_FIREBASE_API_KEY=your_api_key
+NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN=your_project.firebaseapp.com
+NEXT_PUBLIC_FIREBASE_PROJECT_ID=your_project_id
+NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET=your_project.firebasestorage.app
+NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID=your_sender_id
+NEXT_PUBLIC_FIREBASE_APP_ID=your_app_id
+
+JWT_SECRET=your_long_random_secret
+```
+
+## 📦 Production Check
+
+Run:
+
+``` bash
+npm run lint
+npm run build
+npm run start
+```
+
+## 🏠 Home Page Sections
+
+Build the landing page in this order:
+
+``` text
+Navbar
+↓
+Hero
+↓
+Featured Categories
+↓
+Featured Courses
+↓
+Learning Paths
+↓
+Professional Growth
+↓
+Creator CTA
+↓
+Testimonials
+↓
+Newsletter
+↓
+Footer
+```
